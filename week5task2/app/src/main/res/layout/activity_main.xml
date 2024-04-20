@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
 
+
     <ImageView
         android:id="@+id/clothingImageView"
         android:layout_width="238dp"
@@ -16,39 +17,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image" />
 
-    <Button
-        android:id="@+id/colorButton1"
+    <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Color 1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clothingImageView" />
-
-    <Button
-        android:id="@+id/colorButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Color 2"
-        app:layout_constraintStart_toEndOf="@+id/colorButton1"
-        app:layout_constraintTop_toBottomOf="@+id/clothingImageView" />
-
-    <Button
-        android:id="@+id/colorButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="Color 3"
-        app:layout_constraintStart_toEndOf="@+id/colorButton2"
-        app:layout_constraintTop_toBottomOf="@+id/clothingImageView" />
-
-    <Button
-        android:id="@+id/colorButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Color 4"
-        app:layout_constraintStart_toEndOf="@+id/colorButton3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clothingImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/clothingImageView">
+
+        <TableRow>
+            <Button
+                android:id="@+id/colorButton1"
+                android:text="Color 1"/>
+
+            <Button
+                android:id="@+id/colorButton2"
+                android:text="Color 2" />
+
+            <Button
+                android:id="@+id/colorButton3"
+                android:text="Color 3" />
+
+            <Button
+                android:id="@+id/colorButton4"
+                android:text="Color 4" />
+
+        </TableRow>
+
+
+
+
+    </TableLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

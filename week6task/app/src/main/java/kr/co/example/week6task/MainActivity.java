@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculate(); // 계산 메서드 호출
+                calculate();
             }
         });
     }
