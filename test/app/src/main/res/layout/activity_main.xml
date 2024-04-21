@@ -52,6 +52,16 @@
         tools:layout_editor_absoluteX="63dp" />
 
     <Button
+        android:id="@+id/soundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/portNumber"
+        android:layout_centerHorizontal="true"
+        android:text="Sound"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/responseText" />
+
+    <Button
         android:id="@+id/uploadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

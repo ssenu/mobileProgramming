@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,11 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private String mCurrentPhotoPath;
+    private String soundText="응";
+    private TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // TextToSpeech 초기화
+
+
 
         Button selectImageButton = findViewById(R.id.uploadButton);
         selectImageButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +65,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button soundbutton = findViewById(R.id.soundButton);
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    // 언어 설정 (예: 한국어)
+                    textToSpeech.setLanguage(Locale.KOREAN);
+                }
+            }
+        });
+        soundbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 소리로 들려줄 텍스트 설정
+                String text = soundText;
+
+                // TextToSpeech를 사용하여 텍스트를 음성으로 변환하여 출력
+                textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+            }
+        });
     }
+
 
     void openGallery() {
         Intent intent = new Intent();
@@ -147,9 +177,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         TextView responseText = findViewById(R.id.responseText);
-                        try {
 
-                            responseText.setText(response.body().string());
+                        try {
+                            soundText = response.body().string();
+                            responseText.setText(soundText);
                         } catch (IOException e) {
                             responseText.setText("오류띠");
                         }
@@ -157,5 +188,14 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    @Override
+    protected void onDestroy() {
+        // TextToSpeech 종료
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 }
